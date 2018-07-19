@@ -15,7 +15,7 @@
     <link href="../static/css/bootstrap-table.css" rel="stylesheet"/>
     <link href="../static/css/bootstrap-select.css" rel="stylesheet"/>
     <link href="../static/css/bootstrap-editable.css" rel="stylesheet"/>
-    <link href="../static/css/jquery.treegrid.css" rel="stylesheet"/>
+
     <!-- FontAwesome Styles-->
     <link href="../static/assets/css/font-awesome.css" rel="stylesheet"/>
     <!-- Custom Styles-->
@@ -23,6 +23,9 @@
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css#family=Open+Sans' rel='stylesheet' type='text/css'/>
     <!--<link href="@{assets/js/Lightweight-Chart/cssCharts.css}" rel="stylesheet">-->
+
+    <link href="../static/css/treeTable/jquery.treetable.css" rel="stylesheet" type="text/css"/>
+    <link href="../static/css/treeTable/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="wrapper">
@@ -139,38 +142,67 @@
 <!-- Bootstrap table Js -->
 <script src="../static/js/bootstrap-table.js"></script>
 <script src="../static/js/locale/bootstrap-table-zh-CN.js"></script>
-
-<!--<script src="../static/js/jquery.treegrid.min.js"></script>-->
-<!--<script src="../static/js/bootstrap-table-treegrid.js"></script>-->
-<script src="../static/js/jquery.treegrid.extension.js"></script>
+<!--<script src="../static/js/tree-table.js"></script>-->
 
 
+<script src="../static/js/treeTable/jquery.treetable.js"></script>
 
 <script type="text/javascript">
     $(function () {
         var MAINHOST = "http://localhost:8080";
 
-        $('#mytab').treegridData({
-            id: 'Id',
-            parentColumn: 'parent_id',
-            type: "GET", //请求数据的ajax类型
-            url: MAINHOST + '/ResourceManage/getAllResources',   //请求数据的ajax的url
-            ajaxParams: {}, //请求数据的ajax的data属性
-            expandColumn: null,//在哪一列上面显示展开按钮
-            striped: true,   //是否各行渐变色
-            bordered: true,  //是否显示边框
-            //expandAll: false,  //是否全部展开
-            columns: [
-                {
-                    title: '机构名称',
-                    field: 'Name'
-                },
-                {
-                    title: '机构描述',
-                    field: 'Desc'
-                }
-            ]
+        $.ajax(MAINHOST + '/ResourceManage/getAllResources',{
+            type:'GET',
+            dataType: 'json',
+            success: function (result) {
+
+                alert(JSON.stringify(result.data))
+            },
+            error: function (XMLHttpRequest, msg, error) {
+                console.log("XMLHttpRequest-->" + XMLHttpRequest);
+                console.log("msg-->" + msg);
+                console.log("error-->" + error);
+            }
         });
+
+        // var $table = $("#mytab");
+        // $.ajax({
+        //    url: MAINHOST + '/ResourceManage/getAllResources',
+        //     type:'GET',
+        //     dataType:'json',
+        //     success:function (result) {
+        //         var obj = JSON.parse(result.data);
+        //
+        //     },
+        //     error: function (XMLHttpRequest, msg, error) {
+        //         console.log("XMLHttpRequest-->" + XMLHttpRequest);
+        //         console.log("msg-->" + msg);
+        //         console.log("error-->" + error);
+        //     }
+        // });
+
+
+
+        // $('#mytab').treegridData({
+        //     id: 'Id',
+        //     parentColumn: 'parent_id',
+        //     type: "GET", //请求数据的ajax类型
+        //     url: MAINHOST + '/ResourceManage/getAllResources',   //请求数据的ajax的url
+        //     ajaxParams: {}, //请求数据的ajax的data属性
+        //     expandColumn: null,//在哪一列上面显示展开按钮
+        //     striped: true,   //是否各行渐变色
+        //     bordered: true,  //是否显示边框
+        //     //expandAll: false,  //是否全部展开
+        //     columns: [
+        //         {
+        //             title: '机构名称',
+        //             field: 'Name'
+        //         }, {
+        //             title: '机构描述',
+        //             field: 'Desc'
+        //         }
+        //     ]
+        // });
 
     });
 </script>

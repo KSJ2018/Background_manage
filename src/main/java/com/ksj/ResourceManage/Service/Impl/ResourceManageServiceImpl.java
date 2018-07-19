@@ -37,7 +37,7 @@ public class ResourceManageServiceImpl implements ResourceManageService {
 
         for (i = 0; i < result.size() - 1; i++) {
             for (j = i + 1; j < result.size(); j++) {
-                if (Integer.valueOf(result.get(i).get("index").toString()) > Integer.valueOf(result.get(j).get("index").toString())) {
+                if (Integer.valueOf(result.get(i).get("Index").toString()) > Integer.valueOf(result.get(j).get("Index").toString())) {
                     Map temp = result.get(i);
                     result.set(i, result.get(j));
                     result.set(j, temp);
@@ -60,13 +60,13 @@ public class ResourceManageServiceImpl implements ResourceManageService {
         for (Map<String, Object> map : data) {
             if (isFirst) {
                 map.put("submenu", new ArrayList<>());
-                if (Integer.valueOf(map.get("parent_id").toString()) == 0) {
+                if (Integer.valueOf(map.get("ParentId").toString()) == 0) {
                     result.add(map);
                     find.add(map);
                 }
             } else {
                 for (Map<String, Object> map1 : findPids) {
-                    if (Integer.valueOf(map.get("parent_id").toString()) == Integer.valueOf(map1.get("id").toString())) {
+                    if (Integer.valueOf(map.get("ParentId").toString()) == Integer.valueOf(map1.get("Id").toString())) {
                         ((List) map1.get("submenu")).add(map);
                         find.add(map);
                     }
