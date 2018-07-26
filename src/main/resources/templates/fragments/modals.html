@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Bootstrap Styles-->
+    <link th:href="@{../../static/css/bootstrap.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:fragment="modals(page)">
+    <!-- 添加模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel" th:switch="${page}">
+                        <span th:case="${'device-type'}">新增设备类型</span>
+                        <span th:case="${'factorys'}">新增工厂</span>
+                    </h4>
+                </div>
+                <div class="modal-body" th:switch="${page}">
+                    <th:block th:case="${'device-type'}">
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-tree-deciduous"
+                              style="color:#3e8f3e;font-size: 16px;">
+                            <span style="color:#5a5a5a;">类型名称</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeName">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-compressed"
+                              style="color:#075CB3;font-size: 16px;">
+                            <span style="color:#5a5a5a;">数据库名</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeDBName">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-pencil" style="color:#8b1014;font-size: 16px;">
+                            <span style="color:#5a5a5a;">类型描述</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeDescription">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-list-alt" style="color:#31b0d5;font-size: 16px;">
+                            <span style="color:#5a5a5a;">类型表名</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeTableName">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-home" style="color:#985f0d;font-size: 16px;">
+                            <span style="color:#5a5a5a;">数据库IP</span>
+                        </span>
+                            <input type="text" class="form-control" id="DBIP">
+                        </div>
+                    </th:block>
+                    <th:block th:case="${'factorys'}">
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-tree-deciduous"
+                              style="color:#3e8f3e;font-size: 16px;">
+                            <span style="color:#5a5a5a;">工厂ID</span>
+                        </span>
+                            <input type="text" class="form-control" id="FactoryId">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-compressed"
+                              style="color:#075CB3;font-size: 16px;">
+                            <span style="color:#5a5a5a;">工厂名称</span>
+                        </span>
+                            <input type="text" class="form-control" id="FactoryName">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-pencil" style="color:#8b1014;font-size: 16px;">
+                            <span style="color:#5a5a5a;">备注</span>
+                        </span>
+                            <input type="text" class="form-control" id="BeiZhu">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-list-alt" style="color:#31b0d5;font-size: 16px;">
+                            <span style="color:#5a5a5a;">所属用户</span>
+                        </span>
+                            <select class="selectpicker form-control" id="UserName" data-live-search="true"
+                                    data-live-search-placeholder="搜索"
+                                    data-actions-box="true">　
+                            </select>
+                        </div>
+                    </th:block>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="addBtn">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- 修改模态框（Modal） -->
+    <div class="modal fade" id="myModal1" tabindex="-2" role="dialog" aria-labelledby="myModalLabel1"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel1" th:switch="${page}">
+                        <th:block th:case="${'device-type'}">修改设备类型</th:block>
+                        <th:block th:case="${'device-table'}">请输入表名</th:block>
+                        <th:block th:case="${'factorys'}">修改工厂</th:block>
+                    </h4>
+                </div>
+                <div class="modal-body" th:switch="${page}">
+                    <th:block th:case="${'factorys'}">
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-tree-deciduous"
+                              style="color:#3e8f3e;font-size: 16px;">
+                            <span style="color:#5a5a5a;">工厂ID</span>
+                        </span>
+                            <input type="text" class="form-control" id="FactoryId1">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-compressed"
+                              style="color:#075CB3;font-size: 16px;">
+                            <span style="color:#5a5a5a;">工厂名称</span>
+                        </span>
+                            <input type="text" class="form-control" id="FactoryName1">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-pencil" style="color:#8b1014;font-size: 16px;">
+                            <span style="color:#5a5a5a;">备注</span>
+                        </span>
+                            <input type="text" class="form-control" id="BeiZhu1">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-list-alt" style="color:#31b0d5;font-size: 16px;">
+                            <span style="color:#5a5a5a;">所属用户</span>
+                        </span>
+                            <select class="selectpicker1 form-control" id="UserName1" data-live-search="true"
+                                    data-live-search-placeholder="搜索"
+                                    data-actions-box="true">　
+                            </select>
+                        </div>
+                    </th:block>
+                    <th:block th:case="${'device-type'}">
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-tree-deciduous"
+                              style="color:#3e8f3e;font-size: 16px;">
+                            <span style="color:#5a5a5a;">类型名称</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeName1">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-compressed"
+                              style="color:#075CB3;font-size: 16px;">
+                            <span style="color:#5a5a5a;">数据库名</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeDBName1">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-pencil" style="color:#8b1014;font-size: 16px;">
+                            <span style="color:#5a5a5a;">类型描述</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeDescription1">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-list-alt" style="color:#31b0d5;font-size: 16px;">
+                            <span style="color:#5a5a5a;">类型表名</span>
+                        </span>
+                            <input type="text" class="form-control" id="TypeTableName1">
+                        </div>
+                        <div class="input-group">
+                        <span class="glyphicon glyphicon-home" style="color:#985f0d;font-size: 16px;">
+                            <span style="color:#5a5a5a;">数据库IP</span>
+                        </span>
+                            <input type="text" class="form-control" id="DBIP1">
+                        </div>
+                    </th:block>
+                    <th:block th:case="${'device-table'}" class="input-group">
+                        <input type="text" class="form-control" id="TableName"/>
+                    </th:block>
+                </div>
+                <div class="modal-footer" th:switch="${page}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <th:block th:case="*">
+                        <button type="button" class="btn btn-primary" id="updateBtn">修改</button>
+                    </th:block>
+                    <th:block th:case="${'device-table'}">
+                        <button type="button" class="btn btn-primary" id="confirmBtn">确定</button>
+                    </th:block>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>
+<!-- jQuery Js -->
+<script th:src="@{../../static/js/jquery-3.3.1.min.js}"></script>
+
+<!-- Bootstrap Js -->
+<script th:src="@{../../static/js/bootstrap.js}"></script>
+</body>
+</html>

@@ -86,16 +86,16 @@
                             <a href="Resource.html">资源管理</a>
                         </li>
                         <li>
-                            <a href="ClientManager.html" >客户管理</a>
+                            <a href="ClientManager.html">客户管理</a>
                         </li>
                         <li>
-                            <a href="SaleManager.html" >销售管理</a>
+                            <a href="SaleManager.html">销售管理</a>
                         </li>
                         <li>
-                            <a href="TaiZhangManager.html" >台账管理</a>
+                            <a href="TaiZhangManager.html">台账管理</a>
                         </li>
                         <li>
-                            <a href="AlarmPushManager.html" >报警推送管理</a>
+                            <a href="AlarmPushManager.html">报警推送管理</a>
                         </li>
                     </ul>
                 </li>
@@ -154,28 +154,29 @@
 <!-- Bootstrap table Js -->
 <script src="../static/js/bootstrap-table.js"></script>
 <script src="../static/js/locale/bootstrap-table-zh-CN.js"></script>
-<!--<script src="../static/js/tree-table.js"></script>-->
+<script src="../static/js/tree-table.js"></script>
 
 
-<script src="../static/js/treeTable/jquery.treetable.js"></script>
+<!--<script src="../static/js/treeTable/jquery.treetable.js"></script>-->
 
 <script type="text/javascript">
     $(function () {
         var MAINHOST = "http://localhost:8080";
 
-        $.ajax(MAINHOST + '/ResourceManage/getAllResources',{
-            type:'GET',
-            dataType: 'json',
-            success: function (result) {
-
-                alert(JSON.stringify(result.data))
-            },
-            error: function (XMLHttpRequest, msg, error) {
-                console.log("XMLHttpRequest-->" + XMLHttpRequest);
-                console.log("msg-->" + msg);
-                console.log("error-->" + error);
-            }
+        $('#tb').bootstrapTable({
+            url:  MAINHOST + '/ResourceManage/getAllResources',
+            toolbar: '#toolbar',
+            sidePagination: 'client',
+            pagination: false,
+            treeView: true,
+            treeId: "Id",
+            treeField: "Name",
+            treeRootLevel: 1,
+            collapseIcon: "glyphicon glyphicon-triangle-right",//折叠样式
+            expandIcon: "glyphicon glyphicon-triangle-bottom"//展开样式
         });
+
+
 
         // var $table = $("#mytab");
         // $.ajax({
@@ -192,7 +193,6 @@
         //         console.log("error-->" + error);
         //     }
         // });
-
 
 
         // $('#mytab').treegridData({

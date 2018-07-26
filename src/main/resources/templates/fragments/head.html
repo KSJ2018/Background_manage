@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}"
+>
+<head th:fragment="head(title)">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${title}"> </title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link th:href="@{../../static/assets/materialize/css/materialize.css}" media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link th:href="@{../../static/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/bootstrap-table.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/bootstrap-select.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/bootstrap-editable.css}" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link th:href="@{../../static/assets/css/font-awesome.css}" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link th:href="@{../../static/assets/css/custom-styles.css}" rel="stylesheet"/>
+    
+    <link th:href="@{../../static/css/upload/zyUpload.css}" rel="stylesheet"/>
+    <!-- imgViewer Styles-->
+    <link th:href="@{../../static/css/fancyBox/jquery.fancybox.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/fancyBox/jquery.fancybox-buttons.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/fancyBox/jquery.fancybox-thumbs.css}" rel="stylesheet"/>
+
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script th:src="@{../../static/js/jquery-3.3.1.min.js}"></script>
+    <!-- Bootstrap Js -->
+    <script th:src="@{../../static/js/bootstrap.js}"></script>
+    <!-- Metis Menu Js -->
+    <script th:src="@{../../static/assets/js/jquery.metisMenu.js}"></script>
+    <!-- Custom Js -->
+    <script th:src="@{../../static/assets/js/custom-scripts.js}"></script>
+    <!-- Bootstrap table Js -->
+    <script th:src="@{../../static/js/bootstrap-table.js}"></script>
+    <script th:src="@{../../static/js/locale/bootstrap-table-zh-CN.js}"></script>
+    <script th:src="@{../../static/js/bootstrap-select.js}"></script>
+    <script th:src="@{../../static/js/i18n/defaults-zh_CN.js}"></script>
+    <script th:src="@{../../static/js/bootstrap-editable.js}"></script>
+    <script th:src="@{../../static/js/bootstrap-table-editable.js}"></script>
+    <!-- 引用核心层插件 -->
+    <script th:src="@{../../static/js/upload/zyFile.js}"></script>
+    <!-- 引用控制层插件 -->
+    <script th:src="@{../../static/js/upload/zyUpload.js}"></script>
+    <!-- 引用初始化JS -->
+    <script th:src="@{../../static/js/upload/jq22.js}"></script>
+    <!-- imgView JS -->
+    <script th:src="@{../../static/js/fancyBox/jquery.fancybox.js}"></script>
+    <script th:src="@{../../static/js/fancyBox/jquery.fancybox.pack.js}"></script>
+    <script th:src="@{../../static/js/fancyBox/jquery.fancybox-buttons.js}"></script>
+    <script th:src="@{../../static/js/fancyBox/jquery.fancybox-media.js}"></script>
+    <script th:src="@{../../static/js/fancyBox/jquery.fancybox-thumbs.js}"></script>
+</head>
+<body>
+
+</body>
+</html>

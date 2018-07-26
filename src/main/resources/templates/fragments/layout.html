@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>后端管理平台</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link th:href="@{../../static/assets/materialize/css/materialize.css}" media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link th:href="@{../../static/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/bootstrap-table.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/bootstrap-select.css}" rel="stylesheet"/>
+    <link th:href="@{../../static/css/bootstrap-editable.css}" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link th:href="@{../../static/assets/css/font-awesome.css}" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link th:href="@{../../static/assets/css/custom-styles.css}" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css#family=Open+Sans' rel='stylesheet' type='text/css'/>
+
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script th:src="@{../../static/js/jquery-3.3.1.min.js}"></script>
+
+    <!-- Bootstrap Js -->
+    <script th:src="@{../../static/js/bootstrap.js}"></script>
+
+    <script th:src="@{../../static/assets/materialize/js/materialize.js}"></script>
+
+    <!-- Metis Menu Js -->
+    <script th:src="@{../../static/assets/js/jquery.metisMenu.js}"></script>
+    <!-- Custom Js -->
+    <script th:src="@{../../static/assets/js/custom-scripts.js}"></script>
+    <!-- Bootstrap table Js -->
+    <script th:src="@{../../static/js/bootstrap-table.js}"></script>
+    <script th:src="@{../../static/js/locale/bootstrap-table-zh-CN.js}"></script>
+</head>
+
+<body>
+<div th:replace="fragments/header-sidebar :: header-sidebar"></div>
+<div layout:fragment="~{content}">
+</div>
+
+</body>
+</html>

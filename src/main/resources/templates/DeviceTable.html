@@ -1,107 +1,18 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}"
 >
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>后端管理平台</title>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <!--<link href="assets/materialize/css/materialize.min.css" rel="stylesheet"/>-->
-    <!-- Bootstrap Styles-->
-    <link href="../static/css/bootstrap.css" rel="stylesheet"/>
-    <link href="../static/css/bootstrap-table.css" rel="stylesheet"/>
-    <link href="../static/css/bootstrap-select.css" rel="stylesheet"/>
-    <link href="../static/css/bootstrap-editable.css" rel="stylesheet"/>
-    <!-- FontAwesome Styles-->
-    <link href="../static/assets/css/font-awesome.css" rel="stylesheet"/>
-    <!-- Custom Styles-->
-    <link href="../static/assets/css/custom-styles.css" rel="stylesheet"/>
-    <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css#family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <!--<link href="@{assets/js/Lightweight-Chart/cssCharts.css}" rel="stylesheet">-->
+<head th:include="fragments/head :: head('后端管理平台')">
+    <link th:href="@{../static/css/bootstrap-table.css}" rel="stylesheet"/>
+    <script th:src="@{../static/js/bootstrap-table.js}"></script>
+    <script th:src="@{../static/js/locale/bootstrap-table-zh-CN.js}"></script>
 </head>
 <body>
-<div id="wrapper">
-    <nav class="navbar navbar-default top-navbar" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
-                    data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand waves-effect waves-dark" href="index.html" target="content">
-                <strong>后端管理平台</strong>
-                <!--<span sec:authorize="hasRole('ROLE_ADMIN')">管理员额外内容</span>-->
-            </a>
 
-            <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
-        </div>
-
-        <ul class="nav navbar-top-links navbar-right">
-
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                    <i class="fa fa-user fa-fw"></i><span sec:authentication="name"></span> <i
-                        class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-    </nav>
-
-    <!--/. NAV TOP  -->
-    <nav class="navbar-default navbar-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
-                <li>
-                    <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i> 管理<span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="DeviceType.html">设备类型管理</a>
-                        </li>
-                        <li>
-                            <a href="DeviceTable.html" >新增设备定义表</a>
-                        </li>
-                        <li>
-                            <a href="Factorys.html" >工厂管理</a>
-                        </li>
-                        <li>
-                            <a href="Resource.html" >资源管理</a>
-                        </li>
-                        <li>
-                            <a href="ClientManager.html"  >客户管理</a>
-                        </li>
-                        <li>
-                            <a href="SaleManager.html" >销售管理</a>
-                        </li>
-                        <li>
-                            <a href="TaiZhangManager.html" >台账管理</a>
-                        </li>
-                        <li>
-                            <a href="AlarmPushManager.html" >报警推送管理</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <!-- /. NAV SIDE  -->
-</div>
-
-<div id="page-wrapper">
+<div id="page-wrapper" layout:fragment="~{content}">
     <div class="header">
         <h1 class="page-header">
             WELCOME <span sec:authentication="name"></span>
@@ -124,296 +35,224 @@
         </div>
     </div>
 
-    <div id="toolbar" class="btn-group">
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
-        </button>
-        <button id="btn_delete" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <!-- /. PAGE INNER  -->
+    <script th:inline="javascript">
+        $(function () {
+            /*<![CDATA[*/
+            var MAINHOST = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/'';
+            /*]]>*/
 
-    <!-- 修改模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">请输入表名</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="TableName"/>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="confirmBtn">确定修改</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-</div>
+            var deviceTypeArr = [
+                "bigint", "binary", "bit", "blob", "char", "date", "year",
+                "datetime", "decimal", "double", "enum", "float", "geometry",
+                "geometrycollection", "int", "integer", "json", "linestring",
+                "longblob", "longtext", "mediumblob", "mediumint", "mediumtext",
+                "multilinestring", "multipoint", "multipolygon", "numeric", "point",
+                "polygon", "real", "set", "smallint", "text", "time", "timestamp",
+                "tinyblob", "tinyint", "tinytext", "varbinary", "varchar"
+            ];
 
-
-<!-- /. WRAPPER  -->
-<!-- JS Scripts-->
-<!-- jQuery Js -->
-<script src="js/jquery-3.3.1.min.js"></script>
-
-<!-- Bootstrap Js -->
-<script src="js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Js -->
-<script src="../static/assets/js/jquery.metisMenu.js"></script>
-<!-- Custom Js -->
-<script src="../static/assets/js/custom-scripts.js"></script>
-
-<!-- Custom Js -->
-<script src="../static/js/main.js"></script>
-
-<!-- Bootstrap table Js -->
-<script src="../static/js/bootstrap-table.js"></script>
-<script src="../static/js/locale/bootstrap-table-zh-CN.js"></script>
-<script src="../static/js/bootstrap-select.js"></script>
-<script src="../static/js/i18n/defaults-zh_CN.js"></script>
-<script src="../static/js/bootstrap-editable.js"></script>
-<script src="../static/js/bootstrap-table-editable.js"></script>
-
-
-<script type="text/javascript">
-    $(function () {
-        var MAINHOST = "http://192.168.0.17:8080";
-
-        var deviceTypeArr = [
-            "bigint", "binary", "bit", "blob", "char", "date", "year",
-            "datetime", "decimal", "double", "enum", "float", "geometry",
-            "geometrycollection", "int", "integer", "json", "linestring",
-            "longblob", "longtext", "mediumblob", "mediumint", "mediumtext",
-            "multilinestring", "multipoint", "multipolygon", "numeric", "point",
-            "polygon", "real", "set", "smallint", "text", "time", "timestamp",
-            "tinyblob", "tinyint", "tinytext", "varbinary", "varchar"
-        ];
-
-        $("#mytab").bootstrapTable({
-            // clickToSelect: true,
-            cache: false,//是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-            toolbar: '#toolbar',                //工具按钮用哪个容器
-            striped: true,//设置为 true 会有隔行变色效果
-            undefinedText: "空",//当数据为 undefined 时显示的字符
-            singleSelect: true, // 单选checkbox
-            data_local: "zh-US",//表格汉化
-            editable: true,
-            // height: 750,
-            uniqueId: 'id',      //每一行的唯一标识，一般为主键列
-            // idField: "userId",//指定主键列
-            columns: [{
-                checkbox: true,
-                align: "center",
-                field: 'index',
-                visible: true  //是否显示
-            }, {
-                field: 'FieldName',
-                title: '名',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "14%"
-                    }
-                }, editable: {
-                    type: 'text',
+            $("#mytab").bootstrapTable({
+                // clickToSelect: true,
+                cache: false,//是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,//设置为 true 会有隔行变色效果
+                undefinedText: "空",//当数据为 undefined 时显示的字符
+                singleSelect: true, // 单选checkbox
+                data_local: "zh-US",//表格汉化
+                editable: true,
+                // height: 750,
+                uniqueId: 'id',      //每一行的唯一标识，一般为主键列
+                // idField: "userId",//指定主键列
+                columns: [{
+                    checkbox: true,
+                    align: "center",
+                    field: 'index',
+                    visible: true  //是否显示
+                }, {
+                    field: 'FieldName',
                     title: '名',
-                    defaultValue: '',
-                    emptytext: '空',
-                    validate: function (v) {
-                        if (!v) return '字段名不能为空';
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "14%"
+                        }
+                    }, editable: {
+                        type: 'text',
+                        title: '名',
+                        defaultValue: '',
+                        emptytext: '空',
+                        validate: function (v) {
+                            if (!v) return '字段名不能为空';
+                        }
                     }
-                }
-            }, {
-                field: 'FieldType',
-                title: '类型',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "14%"
-                    }
-                }, editable: {
-                    type: 'select',
+                }, {
+                    field: 'FieldType',
                     title: '类型',
-                    defaultValue: '',
-                    emptytext: '空',
-                    source: function () {
-                        var source = [];
-                        for (var i = 0; i < deviceTypeArr.length; i++) {
-                            var json = {};
-                            json['value'] = i + 1 + "";
-                            json['text'] = deviceTypeArr[i];
-                            source.push(json);
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "14%"
                         }
-                        return source;
-                    },
-                    validate: function (v) {
-                        if (!v) return '类型不能为空';
+                    }, editable: {
+                        type: 'select',
+                        title: '类型',
+                        defaultValue: '',
+                        emptytext: '空',
+                        source: function () {
+                            var source = [];
+                            for (var i = 0; i < deviceTypeArr.length; i++) {
+                                var json = {};
+                                json['value'] = i + 1 + "";
+                                json['text'] = deviceTypeArr[i];
+                                source.push(json);
+                            }
+                            return source;
+                        },
+                        validate: function (v) {
+                            if (!v) return '类型不能为空';
+                        }
                     }
-                }
-            }, {
-                field: 'FieldLength',
-                title: '长度',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "14%"
-                    }
-                }, editable: {
-                    type: 'text',
+                }, {
+                    field: 'FieldLength',
                     title: '长度',
-                    defaultValue: '',
-                    emptytext: '空',
-                    validate: function (v) {
-                        if (v) {
-                            if (isNaN(parseInt(v)))
-                                return "长度必须为数字！";
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "14%"
+                        }
+                    }, editable: {
+                        type: 'text',
+                        title: '长度',
+                        defaultValue: '',
+                        emptytext: '空',
+                        validate: function (v) {
+                            if (v) {
+                                if (isNaN(parseInt(v)))
+                                    return "长度必须为数字！";
+                            }
                         }
                     }
-                }
-            }, {
-                field: 'FieldPoint',
-                title: '小数点',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "14%"
-                    }
-                }, editable: {
-                    type: 'text',
+                }, {
+                    field: 'FieldPoint',
                     title: '小数点',
-                    defaultValue: '',
-                    emptytext: '空',
-                    validate: function (v) {
-                        if (v) {
-                            if (isNaN(parseInt(v)))
-                                return "小数点必须为数字！";
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "14%"
+                        }
+                    }, editable: {
+                        type: 'text',
+                        title: '小数点',
+                        defaultValue: '',
+                        emptytext: '空',
+                        validate: function (v) {
+                            if (v) {
+                                if (isNaN(parseInt(v)))
+                                    return "小数点必须为数字！";
+                            }
                         }
                     }
-                }
-            }, {
-                field: 'Default',
-                title: '默认值',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "14%"
-                    }
-                }, editable: {
-                    type: 'text',
+                }, {
+                    field: 'Default',
                     title: '默认值',
-                    defaultValue: '',
-                    emptytext: '空'
-                }
-            }, {
-                field: 'Comment',
-                title: '注释',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "14%"
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "14%"
+                        }
+                    }, editable: {
+                        type: 'text',
+                        title: '默认值',
+                        defaultValue: '',
+                        emptytext: '空'
                     }
-                }, editable: {
-                    type: 'text',
+                }, {
+                    field: 'Comment',
                     title: '注释',
-                    defaultValue: '',
-                    emptytext: '空'
-                }
-            }, {
-                field: 'IsPKey',
-                title: '主键',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "5%"
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "14%"
+                        }
+                    }, editable: {
+                        type: 'text',
+                        title: '注释',
+                        defaultValue: '',
+                        emptytext: '空'
                     }
-                }, editable: {
-                    type: 'checklist',
+                }, {
+                    field: 'IsPKey',
                     title: '主键',
-                    defaultValue: '否',
-                    emptytext: '否',
-                    source: [
-                        {value: '是', text: 'IsPKey'}
-                    ],
-                    display: function (value) {
-                        $(this).text(value);
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "5%"
+                        }
+                    }, editable: {
+                        type: 'checklist',
+                        title: '主键',
+                        defaultValue: '否',
+                        emptytext: '否',
+                        source: [
+                            {value: '是', text: 'IsPKey'}
+                        ],
+                        display: function (value) {
+                            $(this).text(value);
+                        }
                     }
-                }
-            }, {
-                field: 'NotNull',
-                title: '不为NULL',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "5%"
-                    }
-                }, editable: {
-                    type: 'checklist',
+                }, {
+                    field: 'NotNull',
                     title: '不为NULL',
-                    defaultValue: '否',
-                    emptytext: '否',
-                    source: [
-                        {value: '是', text: 'NotNull'}
-                    ],
-                    display: function (value) {
-                        $(this).text(value);
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "5%"
+                        }
+                    }, editable: {
+                        type: 'checklist',
+                        title: '不为NULL',
+                        defaultValue: '否',
+                        emptytext: '否',
+                        source: [
+                            {value: '是', text: 'NotNull'}
+                        ],
+                        display: function (value) {
+                            $(this).text(value);
+                        }
                     }
-                }
-            }, {
-                field: 'Increment',
-                title: '自增',
-                align: "center",
-                cellStyle: {
-                    css: {
-                        "line-height": "20px;",
-                        "width": "5%"
-                    }
-                }, editable: {
-                    type: 'checklist',
+                }, {
+                    field: 'Increment',
                     title: '自增',
-                    defaultValue: '否',
-                    emptytext: '否',
-                    source: [
-                        {value: '是', text: 'Increment'}
-                    ],
-                    display: function (value) {
-                        $(this).text(value);
+                    align: "center",
+                    cellStyle: {
+                        css: {
+                            "line-height": "20px;",
+                            "width": "5%"
+                        }
+                    }, editable: {
+                        type: 'checklist',
+                        title: '自增',
+                        defaultValue: '否',
+                        emptytext: '否',
+                        source: [
+                            {value: '是', text: 'Increment'}
+                        ],
+                        display: function (value) {
+                            $(this).text(value);
+                        }
                     }
-                }
-            }]
-        });
+                }]
+            });
 
-        /**默认初始化一行**/
-        $("#mytab").bootstrapTable('append', {
-            FieldName: '',
-            FieldType: '',
-            FieldLength: '',
-            FieldPoint: '',
-            Comment: '',
-            Default: '',
-            IsPKey: '',
-            NotNull: '',
-            Increment: ''
-        });
-
-        /** 新增按钮点击事件 **/
-        $("#btn_add").click(function () {
+            /**默认初始化一行**/
             $("#mytab").bootstrapTable('append', {
                 FieldName: '',
                 FieldType: '',
@@ -425,92 +264,109 @@
                 NotNull: '',
                 Increment: ''
             });
-        });
 
-        /** 删除按钮点击事件 **/
-        $("#btn_delete").click(function () {
-            $("#mytab").bootstrapTable('remove', {
-                field: 'index',
-                values: [true]
-            });
-        });
-
-        /** 生成表格按钮点击事件 **/
-        $("#createBtn").click(function () {
-            var rows = $("#mytab").bootstrapTable('getData');
-            if (rows == null || rows.length == 0) {
-                alert("请添加一行或者多行数据！");
-                return;
-            }
-            //遍历校验
-            var result = false;
-            $.each(rows, function (index, val) {
-                var FieldName = val['FieldName'];
-                var FieldType = val['FieldType'];
-                if (!validateStr(FieldName) || !validateStr(FieldType)) {
-                    //校验不通过
-                    alert("请检查数据格式");
-                    result = false;
-                    return false;
-                } else
-                    result = true;
-            });
-            if (result) {
-                $("#myModal").modal('toggle');
-            }
-
-        });
-
-        /** 确定按钮点击事件 **/
-        $("#confirmBtn").click(function () {
-            var tableName = $("#TableName").val();
-            var rows = $("#mytab").bootstrapTable('getData');
-            $("#TableName").val('');
-            $.each(rows, function (index, val) {
-                val['FieldType'] = deviceTypeArr[parseInt(val['FieldType']) - 1];
-                val['IsPKey'] = validateBool(val['IsPKey']);
-                val['NotNull'] = validateBool(val['NotNull']);
-                val['Increment'] = validateBool(val['Increment']);
+            /** 新增按钮点击事件 **/
+            $("#btn_add").click(function () {
+                $("#mytab").bootstrapTable('append', {
+                    FieldName: '',
+                    FieldType: '',
+                    FieldLength: '',
+                    FieldPoint: '',
+                    Comment: '',
+                    Default: '',
+                    IsPKey: '',
+                    NotNull: '',
+                    Increment: ''
+                });
             });
 
+            /** 删除按钮点击事件 **/
+            $("#btn_delete").click(function () {
+                $("#mytab").bootstrapTable('remove', {
+                    field: 'index',
+                    values: [true]
+                });
+            });
 
-            //请求Ajax
-            $.ajax({
-                url: MAINHOST + "/DeviceTable/createDeviceTable",
-                type: "POST",
-                data: {
-                    tableName: tableName,
-                    rows: JSON.stringify(rows)
-                },
-                success: function (result) {
-                    if (result.code == 200) {
-                        alert("创建表格成功！");
-                    } else {
-                        alert(result.msg);
-                    }
-                },
-                error: function (jqXHR, textStatus, error) {
-                    alert(jqXHR)
-                    alert(textStatus)
-                    alert(error)
+            /** 生成表格按钮点击事件 **/
+            $("#createBtn").click(function () {
+                var rows = $("#mytab").bootstrapTable('getData');
+                if (rows == null || rows.length == 0) {
+                    alert("请添加一行或者多行数据！");
+                    return;
                 }
+                //遍历校验
+                var result = false;
+                $.each(rows, function (index, val) {
+                    var FieldName = val['FieldName'];
+                    var FieldType = val['FieldType'];
+                    if (!validateStr(FieldName) || !validateStr(FieldType)) {
+                        //校验不通过
+                        alert("请检查数据格式");
+                        result = false;
+                        return false;
+                    } else
+                        result = true;
+                });
+                if (result) {
+                    $("#myModal1").modal('toggle');
+                }
+
             });
-        });
 
-        function validateBool(str) {
-            if (!str || str === undefined ||
-                str.length <= 0 || str === "否"
-                || str === "false")
-                return false;
-            return true;
+            /** 确定按钮点击事件 **/
+            $("#confirmBtn").click(function () {
+                var tableName = $("#TableName").val();
+                var rows = $("#mytab").bootstrapTable('getData');
+                $("#TableName").val('');
+                $.each(rows, function (index, val) {
+                    val['FieldType'] = deviceTypeArr[parseInt(val['FieldType']) - 1];
+                    val['IsPKey'] = validateBool(val['IsPKey']);
+                    val['NotNull'] = validateBool(val['NotNull']);
+                    val['Increment'] = validateBool(val['Increment']);
+                });
 
-        }
 
-        function validateStr(str) {
-            if (str === null || str === undefined || str.length <= 0) {
-                return false;
+                //请求Ajax
+                $.ajax({
+                    url: MAINHOST + "/DeviceTable/createDeviceTable",
+                    type: "POST",
+                    data: {
+                        tableName: tableName,
+                        rows: JSON.stringify(rows)
+                    },
+                    success: function (result) {
+                        if (result.code == 200) {
+                            alert("创建表格成功！");
+                        } else {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, error) {
+                        alert(jqXHR)
+                        alert(textStatus)
+                        alert(error)
+                    }
+                });
+            });
+
+            function validateBool(str) {
+                if (!str || str === undefined ||
+                    str.length <= 0 || str === "否"
+                    || str === "false")
+                    return false;
+                return true;
+
             }
-            return true;
-        }
-    });
-</script>
+
+            function validateStr(str) {
+                if (str === null || str === undefined || str.length <= 0) {
+                    return false;
+                }
+                return true;
+            }
+        });
+    </script>
+    <div th:replace="fragments/toolbar :: toolbar('device-table')"></div>
+    <div th:replace="fragments/modals :: modals('device-table')"></div>
+</div>
