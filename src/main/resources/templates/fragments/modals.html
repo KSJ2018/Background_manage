@@ -21,6 +21,7 @@
                     <h4 class="modal-title" id="myModalLabel" th:switch="${page}">
                         <span th:case="${'device-type'}">新增设备类型</span>
                         <span th:case="${'factorys'}">新增工厂</span>
+                        <span th:case="${'clients'}">新增客户</span>
                     </h4>
                 </div>
                 <div class="modal-body" th:switch="${page}">
@@ -88,6 +89,9 @@
                                     data-actions-box="true">　
                             </select>
                         </div>
+                    </th:block>
+                    <th:block th:case="${'clients'}">
+
                     </th:block>
                 </div>
                 <div class="modal-footer">
