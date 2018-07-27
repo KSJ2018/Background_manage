@@ -101,7 +101,7 @@ public class SysUser implements UserDetails {
             for (SysRole role : this.getSysRoles()) {
                 if (role.getSysResources() != null && role.getSysResources().size() > 0)
                     for (SysResource resource: role.getSysResources()) {
-                        auths.add(new SimpleGrantedAuthority(resource.getResourcename()));
+                        auths.add(new SimpleGrantedAuthority(resource.getResource_name()));
                     }
             }
         return auths;
@@ -141,13 +141,13 @@ public class SysUser implements UserDetails {
     @Override
     public String toString() {
         return "SysUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", dob=" + dob +
-                ", SysRoles=" + SysRoles +
+                "id = " + id +
+                ", username = '" + username + '\'' +
+                ", name = '" + name + '\'' +
+                ", email = '" + email + '\'' +
+                ", password = '" + password + '\'' +
+                ", dob = " + dob +
+                ", SysRoles = " + SysRoles +
                 '}';
     }
 }
