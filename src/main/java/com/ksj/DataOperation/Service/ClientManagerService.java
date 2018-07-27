@@ -39,9 +39,13 @@ public interface ClientManagerService {
      * 获取客户总数
      */
     Integer getClientCount();
+    /**
+     * 获取查询客户总数
+     */
+    Integer getClientCount2(String inputName);
+
 
     /**
      * 根据姓名查找客户信息
      */
-    List<Map<String,Object>> getClientInfoByName(Integer page, Integer pageSize, String inputName);
-}
+    List<Map<String,Object>> getClientInfoByName( Integer page, Integer pageSize,String inputName);}

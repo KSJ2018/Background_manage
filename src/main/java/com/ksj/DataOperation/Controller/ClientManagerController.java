@@ -97,4 +97,28 @@ ClientManagerServiceImpl clientManagerService;
     return WebTool.toResponseBody(result > 0 ? ResponseCode.OK : ResponseCode.REASON,
             null,result > 0 ? "删除成功" : "删除失败");
     }
+
+    /**
+     * 根据姓名查找客户
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getClientInfoByName")
+    @ResponseBody
+    public  Map<String ,Object> getClientInfoByName(HttpServletRequest request){
+        Integer pageIndex = request.getParameter("page") == null
+                || request.getParameter("page").equals("NaN")
+                || request.getParameter("page").equals("undefined")?
+                1 : Integer.valueOf(request.getParameter("page"));
+        Integer pageSize = request.getParameter("rows") == null
+                || request.getParameter("rows").equals("NaN")
+                || request.getParameter("rows").equals("undefined")?
+                5 : Integer.valueOf(request.getParameter("rows"));
+        List<Map<String,Object>> result=clientManagerService.getClientInfoByName(Integer.valueOf(pageIndex),Integer.valueOf(pageSize),
+                request.getParameter("inputName"));
+        Map<String,Object> returnMap=new HashMap<>();
+        returnMap.put("rows",result);
+        returnMap.put("total",clientManagerService.getClientCount2(request.getParameter("inputName")));
+        return returnMap;
+    }
 }

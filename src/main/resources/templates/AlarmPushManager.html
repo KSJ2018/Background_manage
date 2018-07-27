@@ -2,106 +2,14 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}"
 >
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>后端管理平台</title>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <!--<link href="assets/materialize/css/materialize.min.css" rel="stylesheet"/>-->
-    <!-- Bootstrap Styles-->
-    <link href="css/bootstrap.css" rel="stylesheet"/>
-    <link href="css/bootstrap-table.css" rel="stylesheet"/>
-    <!-- FontAwesome Styles-->
-    <link href="assets/css/font-awesome.css" rel="stylesheet"/>
-    <!-- Custom Styles-->
-    <link href="assets/css/custom-styles.css" rel="stylesheet"/>
-    <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css#family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <!--<link href="@{assets/js/Lightweight-Chart/cssCharts.css}" rel="stylesheet">-->
+<head th:include="fragments/head :: head('后端管理平台')">
 </head>
 <body>
-<div id="wrapper">
-    <nav class="navbar navbar-default top-navbar" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
-                    data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand waves-effect waves-dark" href="index.html" target="content">
-                <strong>后端管理平台</strong>
-                <!--<span sec:authorize="hasRole('ROLE_ADMIN')">管理员额外内容</span>-->
-            </a>
-
-            <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
-        </div>
-
-        <ul class="nav navbar-top-links navbar-right">
-
-            <!-- /.dropdown -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                    <i class="fa fa-user fa-fw"></i><span sec:authentication="name"></span> <i
-                        class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-                <!-- /.dropdown-user -->
-            </li>
-            <!-- /.dropdown -->
-        </ul>
-    </nav>
-
-    <!--/. NAV TOP  -->
-    <nav class="navbar-default navbar-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
-                <li>
-                    <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i> 管理<span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="DeviceType.html">设备类型管理</a>
-                        </li>
-                        <li>
-                            <a href="DeviceTable.html" >新增设备定义表</a>
-                        </li>
-                        <li>
-                            <a href="Factorys.html" >工厂管理</a>
-                        </li>
-                        <li>
-                            <a href="Resource.html" >资源管理</a>
-                        </li>
-                        <li>
-                            <a href="ClientManager.html"  >客户管理</a>
-                        </li>
-                        <li>
-                            <a href="SaleManager.html" >销售管理</a>
-                        </li>
-                        <li>
-                            <a href="TaiZhangManager.html" >台账管理</a>
-                        </li>
-                        <li>
-                            <a href="AlarmPushManager.html" >报警推送管理</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
-
-    </nav>
-    <!-- /. NAV SIDE  -->
-</div>
-
-<div id="page-wrapper">
+<div id="page-wrapper" layout:fragment="~{content}">
     <div class="header">
         <h1 class="page-header">
             WELCOME <span sec:authentication="name"></span>
@@ -119,158 +27,7 @@
         </div>
     </div>
 
-    <div id="toolbar" class="btn-group">
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
-        </button>
-        <button id="btn_edit" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
-        </button>
-        <button id="btn_delete" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <!-- /. PAGE INNER  -->
-
-    <!-- 添加模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">报警推送管理</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-tree-deciduous"
-                              style="color:#3e8f3e;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警点位</span>
-                        </span>
-                        <input type="text" class="form-control" id="point">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-envelope"
-                              style="color:#075CB3;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警推送消息</span>
-                        </span>
-                        <input type="text" class="form-control" id="info">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-plus-sign" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警推送方式</span>
-                        </span>
-                        <input type="text" class="form-control" id="type">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-flag" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警紧急程度</span>
-                        </span>
-                        <input type="text" class="form-control" id="rank">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon  glyphicon-print" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">设备id</span>
-                        </span>
-                        <input type="text" class="form-control" id="phone">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-edit" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">备注</span>
-                        </span>
-                        <input type="text" class="form-control" id="comment">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id="addBtn">添加</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- 修改模态框（Modal） -->
-    <div class="modal fade" id="myModal1" tabindex="-2" role="dialog" aria-labelledby="myModalLabel1"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel1">修改报警推送</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-tree-deciduous"
-                              style="color:#3e8f3e;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警点位</span>
-                        </span>
-                        <input type="text" class="form-control" id="point1">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-envelope"
-                              style="color:#075CB3;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警推送信息</span>
-                        </span>
-                        <input type="text" class="form-control" id="info1">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-plus-sign" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警推送方式</span>
-                        </span>
-                        <input type="text" class="form-control" id="type1">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-flag" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">报警紧急程度</span>
-                        </span>
-                        <input type="text" class="form-control" id="rank1">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-print" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">设备id</span>
-                        </span>
-                        <input type="text" class="form-control" id="phone1">
-                    </div>
-                    <div class="input-group">
-                        <span class="glyphicon glyphicon-edit" style="color:#8b1014;font-size: 16px;">
-                            <span style="color:#5a5a5a;">备注</span>
-                        </span>
-                        <input type="text" class="form-control" id="comment1">
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id="updateBtn">确认修改</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-</div>
-
-
-<!-- /. WRAPPER  -->
-<!-- JS Scripts-->
-<!-- jQuery Js -->
-<script src="js/jquery-3.3.1.min.js"></script>
-
-<!-- Bootstrap Js -->
-<script src="js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Js -->
-<script src="assets/js/jquery.metisMenu.js"></script>
-<!-- Custom Js -->
-<script src="assets/js/custom-scripts.js"></script>
-
-<!-- Custom Js -->
-<script src="js/main.js"></script>
-
-<!-- Bootstrap table Js -->
-<script src="js/bootstrap-table.js"></script>
-<script src="js/locale/bootstrap-table-zh-CN.js"></script>
-
-<script type="text/javascript">
+<script th:inline="javascript">
     $(function () {
         var MAINHOST = "http://localhost:8080";
         var currentIndex = -1;
@@ -547,5 +304,8 @@
     });
 
 </script>
+    <div th:replace="fragments/toolbar :: toolbar('alarm_push_manage')"></div>
+    <div th:replace="fragments/modals :: modals('alarm_push_manage')"></div>
+</div>
 </body>
 </html>

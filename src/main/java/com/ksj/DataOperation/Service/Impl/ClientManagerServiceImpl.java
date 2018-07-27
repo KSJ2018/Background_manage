@@ -40,7 +40,12 @@ public class ClientManagerServiceImpl implements ClientManagerService {
     }
 
     @Override
+    public Integer getClientCount2(String inputName) {
+        return clientManagerMapper.getClientCount2(inputName);
+    }
+
+    @Override
     public List<Map<String, Object>> getClientInfoByName(Integer page, Integer pageSize,String inputName) {
-        return null;
+        return clientManagerMapper.getClientInfoByName((page - 1) * pageSize,pageSize,inputName);
     }
 }

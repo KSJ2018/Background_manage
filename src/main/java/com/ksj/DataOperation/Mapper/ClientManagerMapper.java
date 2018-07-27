@@ -14,6 +14,9 @@ public interface ClientManagerMapper {
     @Select("select count(*) as total from client")
     Integer getClientCount();
 
+    @Select("select count(*) as total from client where name=#{inputName}")
+    Integer getClientCount2(@Param("inputName") String inputName);
+
     @Delete("delete from client where id=#{id}")
     Integer deleteClientById(@Param("id") String id);
 
@@ -38,8 +41,8 @@ public interface ClientManagerMapper {
                              @Param("comment") String comment);
 
     @Select("select * from client where name=#{inputName} limit #{index},#{pageSize}")
-    Integer getClientInfoByName(@Param("index") Integer index,
-                                @Param("pageSize") Integer pageSize,
-                                @Param("inputName") String inputName);
+    List<Map<String,Object>> getClientInfoByName(@Param("index") Integer index,
+                                                 @Param("pageSize") Integer pageSize,
+                                                 @Param("inputName") String inputName);
 
 }
